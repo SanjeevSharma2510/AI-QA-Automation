@@ -1,0 +1,12 @@
+
+fastapi
+uvicorn
+playwright
+google-genai
+pydantic
+pydantic-settings
+openpyxl
+python-dotenv
+pytest
+pytest-html
+httpx

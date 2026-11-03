@@ -1,0 +1,11 @@
+{
+    "generated_at": "2026-11-02T01:25:34.615977-06:00",
+    "summary": {
+        "total_failure_records": 0,
+        "failed_test_cases": 0,
+        "flaky_test_cases": 0,
+        "total_failed_attempts": 0,
+        "total_screenshots": 0
+    },
+    "failure_details": []
+}

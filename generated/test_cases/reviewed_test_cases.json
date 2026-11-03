@@ -1,0 +1,102 @@
+{
+    "review_id": "20261101_234420",
+    "created_at": "2026-11-01T23:44:20.157944",
+    "source_file": "test_cases.json",
+    "test_cases": [
+        {
+            "module": "TodoMVC",
+            "scenario_name": "Validate initial rendering and attributes of TodoMVC input field",
+            "scenario_type": "ui_validation",
+            "priority": "medium",
+            "preconditions": [
+                "Browser is navigated to https://demo.playwright.dev/todomvc/#/."
+            ],
+            "test_steps": [
+                "Inspect the main input field.",
+                "Verify placeholder text equals 'What needs to be done?'.",
+                "Verify element is enabled (disabled equals false) and editable (readonly equals false).",
+                "Verify value_present is false on initial page load."
+            ],
+            "expected_results": [
+                "Input field is displayed, enabled, empty, and displays the placeholder 'What needs to be done?'."
+            ],
+            "test_case_id": "TC-001",
+            "source_workflow_ids": [
+                "WF-002"
+            ],
+            "evidence": [
+                "ui_discovery_report.json: inputs[0] with placeholder 'What needs to be done?', disabled: false, readonly: false, value_present: false",
+                "Approved source scenario: AI-004"
+            ],
+            "execution_status": "not_executed",
+            "review_status": "approved",
+            "reviewed_at": "2026-11-01T23:45:35.301286"
+        },
+        {
+            "module": "TodoMVC",
+            "scenario_name": "Attempt empty submission on TodoMVC input field",
+            "scenario_type": "negative",
+            "priority": "medium",
+            "preconditions": [
+                "Browser is navigated to https://demo.playwright.dev/todomvc/#/."
+            ],
+            "test_steps": [
+                "Locate input[placeholder='What needs to be done?'].",
+                "Ensure input is empty.",
+                "Send Enter keystroke without typing any characters.",
+                "Check whether empty todo item is prevented from creation."
+            ],
+            "expected_results": [
+                "No empty todo item is added to the application state or interface."
+            ],
+            "test_case_id": "TC-002",
+            "source_workflow_ids": [
+                "WF-002"
+            ],
+            "evidence": [
+                "ui_discovery_report.json: inputs[0] placeholder 'What needs to be done?'",
+                "Approved source scenario: AI-005"
+            ],
+            "execution_status": "not_executed",
+            "review_status": "pending"
+        },
+        {
+            "module": "Todo Item Entry",
+            "scenario_name": "Boundary string length input in TodoMVC input field",
+            "scenario_type": "boundary",
+            "priority": "medium",
+            "preconditions": [
+                "Browser is navigated to https://demo.playwright.dev/todomvc/#/."
+            ],
+            "test_steps": [
+                "Focus on input[placeholder='What needs to be done?'].",
+                "Type a single character string ('A') and press Enter.",
+                "Focus on input[placeholder='What needs to be done?'].",
+                "Type a large character string (e.g., 255 characters or 1000 characters) and press Enter.",
+                "Observe the resulting UI items and verify input handling and layout stability."
+            ],
+            "expected_results": [
+                "Application accepts valid single-character task ('A') and displays it in the list.",
+                "Application accepts and handles the boundary long string task without breaking the UI layout."
+            ],
+            "test_case_id": "TC-003",
+            "source_workflow_ids": [
+                "WF-002"
+            ],
+            "evidence": [
+                "website_exploration.json: inputs[0]",
+                "ui_discovery_report.json: inputs[0]",
+                "Approved source scenario: AI-006"
+            ],
+            "execution_status": "not_executed",
+            "review_status": "pending"
+        }
+    ],
+    "review_summary": {
+        "total": 3,
+        "approved": 1,
+        "rejected": 0,
+        "pending": 2
+    },
+    "updated_at": "2026-11-01T23:45:39.425568"
+}

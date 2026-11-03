@@ -1,0 +1,231 @@
+{
+    "application_overview": {
+        "name": "Playwright TodoMVC & DemoQA Select Menu Exploration Dataset",
+        "purpose": "The evidence documents two distinct web domains explored during automated scanning: 1) A React-based Todo application hosted at demo.playwright.dev providing task input capabilities, and 2) A Select Menu component demonstration page on demoqa.com providing dropdown and selection widgets.",
+        "observed_functionality": [
+            "Task creation text input with placeholder 'What needs to be done?' on React TodoMVC (demo.playwright.dev/todomvc/#/).",
+            "External resource hyperlinks to TodoMVC project and author profiles on React TodoMVC.",
+            "Single-selection HTML native dropdown (#oldSelectMenu) containing color choices on DemoQA.",
+            "Multi-selection HTML select list (#cars) containing car brand options on DemoQA.",
+            "Custom React-select text input controls (#react-select-2-input, #react-select-3-input, #react-select-4-input) on DemoQA.",
+            "Navigation link list for widgets (Accordian, Auto Complete, Date Picker, Slider, Progress Bar, Tabs, Tool Tips, Menu, Select Menu) on DemoQA."
+        ]
+    },
+    "pages": [
+        {
+            "page_name": "React • TodoMVC",
+            "url": "https://demo.playwright.dev/todomvc/#/",
+            "responsibility": "Task management interface presenting an input field for capturing new todo items, alongside external reference links.",
+            "observed_elements": [
+                "input[placeholder='What needs to be done?']",
+                "a[href='https://todomvc.com/']",
+                "a[href='http://github.com/remojansen/']",
+                "a[href='http://todomvc.com/']"
+            ],
+            "confidence": "high"
+        },
+        {
+            "page_name": "DemoQA Select Menu",
+            "url": "https://demoqa.com/select-menu",
+            "responsibility": "Widget demonstration page exposing native and custom React dropdown selection components.",
+            "observed_elements": [
+                "select#oldSelectMenu (single select with 11 color options)",
+                "select#cars (multi select with 4 vehicle options)",
+                "input#react-select-2-input",
+                "input#react-select-3-input",
+                "input#react-select-4-input",
+                "a navigation links (Accordian, Auto Complete, Date Picker, Slider, Progress Bar, Tabs, Tool Tips, Menu, Select Menu)"
+            ],
+            "confidence": "high"
+        }
+    ],
+    "business_workflows": [
+        {
+            "workflow_name": "Single Select Option Change via Old Select Menu",
+            "description": "User interacts with native select dropdown #oldSelectMenu to change the selected option from default 'Red' to another value such as 'Blue'.",
+            "steps": [
+                "Navigate to https://demoqa.com/select-menu.",
+                "Inspect the current value of select#oldSelectMenu (initial default value: 'red').",
+                "Select option 'Blue' (value '1').",
+                "Verify that select#oldSelectMenu updates its value to '1'."
+            ],
+            "evidence": [
+                "interactive_exploration.json: interaction_results[0] selector #oldSelectMenu previous_value 'red' selected_value '1' status 'success'"
+            ],
+            "confidence": "high",
+            "requires_user_confirmation": false
+        },
+        {
+            "workflow_name": "Todo Item Entry Submission (Inferred)",
+            "description": "User enters task description into the main todo input field and submits to add an item to the list.",
+            "steps": [
+                "Navigate to https://demo.playwright.dev/todomvc/#/.",
+                "Focus on input[placeholder='What needs to be done?'].",
+                "Type task name and press Enter key.",
+                "Observe if a list item or new UI element appears."
+            ],
+            "evidence": [
+                "website_exploration.json: input with placeholder 'What needs to be done?'",
+                "ui_discovery_report.json: inputs[0] with placeholder 'What needs to be done?'"
+            ],
+            "confidence": "low",
+            "requires_user_confirmation": true
+        }
+    ],
+    "potential_test_scenarios": [
+        {
+            "scenario_id": "AI-001",
+            "scenario_name": "Verify single selection update in Old Select Menu",
+            "scenario_type": "positive",
+            "preconditions": [
+                "Browser is navigated to https://demoqa.com/select-menu."
+            ],
+            "test_steps": [
+                "Locate dropdown select element with id 'oldSelectMenu'.",
+                "Verify initial value is 'red'.",
+                "Select option with visible text 'Blue' and value '1'.",
+                "Read selected option value."
+            ],
+            "expected_results": [
+                "The element value changes from 'red' to '1' and selected text displays 'Blue'."
+            ],
+            "evidence": [
+                "interactive_exploration.json: interaction_results[0] selector #oldSelectMenu"
+            ],
+            "confidence": "high",
+            "requires_user_confirmation": false
+        },
+        {
+            "scenario_id": "AI-002",
+            "scenario_name": "Verify option bounds and total count in Old Select Menu",
+            "scenario_type": "boundary",
+            "preconditions": [
+                "Browser is navigated to https://demoqa.com/select-menu."
+            ],
+            "test_steps": [
+                "Locate select element with id 'oldSelectMenu'.",
+                "Enumerate all child option elements.",
+                "Select the first option ('Red', value 'red').",
+                "Select the last option ('Aqua', value '10')."
+            ],
+            "expected_results": [
+                "The dropdown contains exactly 11 options, and boundary options 'Red' (first) and 'Aqua' (last) can be selected without error."
+            ],
+            "evidence": [
+                "interactive_exploration.json: discovered_dropdowns[0] options array of length 11"
+            ],
+            "confidence": "high",
+            "requires_user_confirmation": false
+        },
+        {
+            "scenario_id": "AI-003",
+            "scenario_name": "Verify multi-select cars dropdown initial state and selection capability",
+            "scenario_type": "positive",
+            "preconditions": [
+                "Browser is navigated to https://demoqa.com/select-menu."
+            ],
+            "test_steps": [
+                "Locate select element with id 'cars'.",
+                "Verify type attribute is 'select-multiple'.",
+                "Verify initial selected value is empty.",
+                "Select option 'Volvo' (value 'volvo') and option 'Audi' (value 'audi')."
+            ],
+            "expected_results": [
+                "Multiple items ('volvo', 'audi') can be selected simultaneously without unchecking prior selections."
+            ],
+            "evidence": [
+                "interactive_exploration.json: discovered_dropdowns[1] id 'cars' type 'select-multiple'"
+            ],
+            "confidence": "medium",
+            "requires_user_confirmation": false
+        },
+        {
+            "scenario_id": "AI-004",
+            "scenario_name": "Validate initial rendering and attributes of TodoMVC input field",
+            "scenario_type": "ui_validation",
+            "preconditions": [
+                "Browser is navigated to https://demo.playwright.dev/todomvc/#/."
+            ],
+            "test_steps": [
+                "Inspect the main input field.",
+                "Verify placeholder text equals 'What needs to be done?'.",
+                "Verify element is enabled (disabled equals false) and editable (readonly equals false).",
+                "Verify value_present is false on initial page load."
+            ],
+            "expected_results": [
+                "Input field is displayed, enabled, empty, and displays the placeholder 'What needs to be done?'."
+            ],
+            "evidence": [
+                "ui_discovery_report.json: inputs[0] with placeholder 'What needs to be done?', disabled: false, readonly: false, value_present: false"
+            ],
+            "confidence": "high",
+            "requires_user_confirmation": false
+        },
+        {
+            "scenario_id": "AI-005",
+            "scenario_name": "Attempt empty submission on TodoMVC input field",
+            "scenario_type": "negative",
+            "preconditions": [
+                "Browser is navigated to https://demo.playwright.dev/todomvc/#/."
+            ],
+            "test_steps": [
+                "Locate input[placeholder='What needs to be done?'].",
+                "Ensure input is empty.",
+                "Send Enter keystroke without typing any characters.",
+                "Check whether empty todo item is prevented from creation."
+            ],
+            "expected_results": [
+                "No empty todo item is added to the application state or interface."
+            ],
+            "evidence": [
+                "ui_discovery_report.json: inputs[0] placeholder 'What needs to be done?'"
+            ],
+            "confidence": "low",
+            "requires_user_confirmation": true
+        },
+        {
+            "scenario_id": "AI-006",
+            "scenario_name": "Boundary string length input in TodoMVC input field",
+            "scenario_type": "boundary",
+            "preconditions": [
+                "Browser is navigated to https://demo.playwright.dev/todomvc/#/."
+            ],
+            "test_steps": [
+                "Locate input[placeholder='What needs to be done?'].",
+                "Enter a single character string ('A') and submit.",
+                "Enter a large character string (e.g., 255 characters or 1000 characters) and submit.",
+                "Verify input handling and layout stability."
+            ],
+            "expected_results": [
+                "Application accepts valid single-character tasks and handles boundary long strings without breaking UI layout."
+            ],
+            "evidence": [
+                "website_exploration.json: inputs[0]",
+                "ui_discovery_report.json: inputs[0]"
+            ],
+            "confidence": "low",
+            "requires_user_confirmation": true
+        }
+    ],
+    "assumptions": [
+        "It is assumed that pressing Enter in the TodoMVC input field triggers task addition, although only the initial empty input state was captured in the evidence.",
+        "It is assumed that the multi-page exploration and ui_discovery_report target the TodoMVC application, whereas interactive_exploration was performed on DemoQA Select Menu.",
+        "It is assumed that the two domains (demo.playwright.dev and demoqa.com) were explored as separate target test subjects within the same exploration session."
+    ],
+    "missing_information": [
+        "No recorded post-entry state or todo list elements exist in the TodoMVC evidence (no list items, checkboxes, filters, or delete buttons were discovered in the empty initial state).",
+        "No interaction records exist for DemoQA react-select input fields (#react-select-2-input, #react-select-3-input, #react-select-4-input).",
+        "No tables, search forms, or pagination controls were detected in any of the exploration logs."
+    ],
+    "user_confirmation_questions": [
+        "Should test suite generation cover both demo.playwright.dev/todomvc and demoqa.com/select-menu, or should testing be isolated to a single target application?",
+        "Does the TodoMVC application require Enter key interaction or form submission to create items, and are completion checkboxes and filters expected once items exist?",
+        "What are the expected component behaviors and validation rules for the custom React select elements (#react-select-2-input, #react-select-3-input, #react-select-4-input) on DemoQA?"
+    ],
+    "restrictions_applied": [
+        "No production records or data were deleted or targeted for deletion.",
+        "No payment or financial transaction workflows were suggested or executed.",
+        "No unevidenced business logic or unseen pages were assumed; unobserved behaviors are marked with low confidence and flagged for user confirmation.",
+        "No modifications to live business data are proposed."
+    ]
+}

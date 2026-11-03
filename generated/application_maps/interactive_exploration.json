@@ -1,0 +1,681 @@
+{
+    "exploration_time": "2026-10-30T06:32:59.990567",
+    "website": {
+        "title": "demosite",
+        "url": "https://demoqa.com/select-menu"
+    },
+    "initial_state": {
+        "url": "https://demoqa.com/select-menu",
+        "title": "demosite",
+        "visible_elements": [
+            {
+                "tag": "a",
+                "type": null,
+                "text": "",
+                "id": "",
+                "name": null,
+                "value": null,
+                "disabled": false
+            },
+            {
+                "tag": "a",
+                "type": null,
+                "text": "Accordian",
+                "id": "",
+                "name": null,
+                "value": null,
+                "disabled": false
+            },
+            {
+                "tag": "a",
+                "type": null,
+                "text": "Auto Complete",
+                "id": "",
+                "name": null,
+                "value": null,
+                "disabled": false
+            },
+            {
+                "tag": "a",
+                "type": null,
+                "text": "Date Picker",
+                "id": "",
+                "name": null,
+                "value": null,
+                "disabled": false
+            },
+            {
+                "tag": "a",
+                "type": null,
+                "text": "Slider",
+                "id": "",
+                "name": null,
+                "value": null,
+                "disabled": false
+            },
+            {
+                "tag": "a",
+                "type": null,
+                "text": "Progress Bar",
+                "id": "",
+                "name": null,
+                "value": null,
+                "disabled": false
+            },
+            {
+                "tag": "a",
+                "type": null,
+                "text": "Tabs",
+                "id": "",
+                "name": null,
+                "value": null,
+                "disabled": false
+            },
+            {
+                "tag": "a",
+                "type": null,
+                "text": "Tool Tips",
+                "id": "",
+                "name": null,
+                "value": null,
+                "disabled": false
+            },
+            {
+                "tag": "a",
+                "type": null,
+                "text": "Menu",
+                "id": "",
+                "name": null,
+                "value": null,
+                "disabled": false
+            },
+            {
+                "tag": "a",
+                "type": null,
+                "text": "Select Menu",
+                "id": "",
+                "name": null,
+                "value": null,
+                "disabled": false
+            },
+            {
+                "tag": "input",
+                "type": "text",
+                "text": "",
+                "id": "react-select-2-input",
+                "name": null,
+                "value": null,
+                "disabled": false
+            },
+            {
+                "tag": "input",
+                "type": "text",
+                "text": "",
+                "id": "react-select-3-input",
+                "name": null,
+                "value": null,
+                "disabled": false
+            },
+            {
+                "tag": "select",
+                "type": "select-one",
+                "text": "Red\nBlue\nGreen\nYellow\nPurple\nBlack\nWhite\nVoilet\nIndigo\nMagenta\nAqua",
+                "id": "oldSelectMenu",
+                "name": null,
+                "value": "red",
+                "disabled": false
+            },
+            {
+                "tag": "input",
+                "type": "text",
+                "text": "",
+                "id": "react-select-4-input",
+                "name": null,
+                "value": null,
+                "disabled": false
+            },
+            {
+                "tag": "select",
+                "type": "select-multiple",
+                "text": "Volvo\nSaab\nOpel\nAudi",
+                "id": "cars",
+                "name": "cars",
+                "value": null,
+                "disabled": false
+            }
+        ]
+    },
+    "discovered_dropdowns": [
+        {
+            "index": 1,
+            "id": "oldSelectMenu",
+            "name": "",
+            "options": [
+                {
+                    "text": "Red",
+                    "value": "red",
+                    "disabled": false
+                },
+                {
+                    "text": "Blue",
+                    "value": "1",
+                    "disabled": false
+                },
+                {
+                    "text": "Green",
+                    "value": "2",
+                    "disabled": false
+                },
+                {
+                    "text": "Yellow",
+                    "value": "3",
+                    "disabled": false
+                },
+                {
+                    "text": "Purple",
+                    "value": "4",
+                    "disabled": false
+                },
+                {
+                    "text": "Black",
+                    "value": "5",
+                    "disabled": false
+                },
+                {
+                    "text": "White",
+                    "value": "6",
+                    "disabled": false
+                },
+                {
+                    "text": "Voilet",
+                    "value": "7",
+                    "disabled": false
+                },
+                {
+                    "text": "Indigo",
+                    "value": "8",
+                    "disabled": false
+                },
+                {
+                    "text": "Magenta",
+                    "value": "9",
+                    "disabled": false
+                },
+                {
+                    "text": "Aqua",
+                    "value": "10",
+                    "disabled": false
+                }
+            ],
+            "selected_value": "red"
+        },
+        {
+            "index": 2,
+            "id": "cars",
+            "name": "cars",
+            "options": [
+                {
+                    "text": "Volvo",
+                    "value": "volvo",
+                    "disabled": false
+                },
+                {
+                    "text": "Saab",
+                    "value": "saab",
+                    "disabled": false
+                },
+                {
+                    "text": "Opel",
+                    "value": "opel",
+                    "disabled": false
+                },
+                {
+                    "text": "Audi",
+                    "value": "audi",
+                    "disabled": false
+                }
+            ],
+            "selected_value": ""
+        }
+    ],
+    "interaction_results": [
+        {
+            "selector": "#oldSelectMenu",
+            "status": "success",
+            "previous_value": "red",
+            "selected_value": "1",
+            "newly_visible_elements": [],
+            "no_longer_visible_elements": [],
+            "before_state": {
+                "url": "https://demoqa.com/select-menu",
+                "title": "demosite",
+                "visible_elements": [
+                    {
+                        "tag": "a",
+                        "type": null,
+                        "text": "",
+                        "id": "",
+                        "name": null,
+                        "value": null,
+                        "disabled": false
+                    },
+                    {
+                        "tag": "a",
+                        "type": null,
+                        "text": "Accordian",
+                        "id": "",
+                        "name": null,
+                        "value": null,
+                        "disabled": false
+                    },
+                    {
+                        "tag": "a",
+                        "type": null,
+                        "text": "Auto Complete",
+                        "id": "",
+                        "name": null,
+                        "value": null,
+                        "disabled": false
+                    },
+                    {
+                        "tag": "a",
+                        "type": null,
+                        "text": "Date Picker",
+                        "id": "",
+                        "name": null,
+                        "value": null,
+                        "disabled": false
+                    },
+                    {
+                        "tag": "a",
+                        "type": null,
+                        "text": "Slider",
+                        "id": "",
+                        "name": null,
+                        "value": null,
+                        "disabled": false
+                    },
+                    {
+                        "tag": "a",
+                        "type": null,
+                        "text": "Progress Bar",
+                        "id": "",
+                        "name": null,
+                        "value": null,
+                        "disabled": false
+                    },
+                    {
+                        "tag": "a",
+                        "type": null,
+                        "text": "Tabs",
+                        "id": "",
+                        "name": null,
+                        "value": null,
+                        "disabled": false
+                    },
+                    {
+                        "tag": "a",
+                        "type": null,
+                        "text": "Tool Tips",
+                        "id": "",
+                        "name": null,
+                        "value": null,
+                        "disabled": false
+                    },
+                    {
+                        "tag": "a",
+                        "type": null,
+                        "text": "Menu",
+                        "id": "",
+                        "name": null,
+                        "value": null,
+                        "disabled": false
+                    },
+                    {
+                        "tag": "a",
+                        "type": null,
+                        "text": "Select Menu",
+                        "id": "",
+                        "name": null,
+                        "value": null,
+                        "disabled": false
+                    },
+                    {
+                        "tag": "input",
+                        "type": "text",
+                        "text": "",
+                        "id": "react-select-2-input",
+                        "name": null,
+                        "value": null,
+                        "disabled": false
+                    },
+                    {
+                        "tag": "input",
+                        "type": "text",
+                        "text": "",
+                        "id": "react-select-3-input",
+                        "name": null,
+                        "value": null,
+                        "disabled": false
+                    },
+                    {
+                        "tag": "select",
+                        "type": "select-one",
+                        "text": "Red\nBlue\nGreen\nYellow\nPurple\nBlack\nWhite\nVoilet\nIndigo\nMagenta\nAqua",
+                        "id": "oldSelectMenu",
+                        "name": null,
+                        "value": "red",
+                        "disabled": false
+                    },
+                    {
+                        "tag": "input",
+                        "type": "text",
+                        "text": "",
+                        "id": "react-select-4-input",
+                        "name": null,
+                        "value": null,
+                        "disabled": false
+                    },
+                    {
+                        "tag": "select",
+                        "type": "select-multiple",
+                        "text": "Volvo\nSaab\nOpel\nAudi",
+                        "id": "cars",
+                        "name": "cars",
+                        "value": null,
+                        "disabled": false
+                    }
+                ]
+            },
+            "after_state": {
+                "url": "https://demoqa.com/select-menu",
+                "title": "demosite",
+                "visible_elements": [
+                    {
+                        "tag": "a",
+                        "type": null,
+                        "text": "",
+                        "id": "",
+                        "name": null,
+                        "value": null,
+                        "disabled": false
+                    },
+                    {
+                        "tag": "a",
+                        "type": null,
+                        "text": "Accordian",
+                        "id": "",
+                        "name": null,
+                        "value": null,
+                        "disabled": false
+                    },
+                    {
+                        "tag": "a",
+                        "type": null,
+                        "text": "Auto Complete",
+                        "id": "",
+                        "name": null,
+                        "value": null,
+                        "disabled": false
+                    },
+                    {
+                        "tag": "a",
+                        "type": null,
+                        "text": "Date Picker",
+                        "id": "",
+                        "name": null,
+                        "value": null,
+                        "disabled": false
+                    },
+                    {
+                        "tag": "a",
+                        "type": null,
+                        "text": "Slider",
+                        "id": "",
+                        "name": null,
+                        "value": null,
+                        "disabled": false
+                    },
+                    {
+                        "tag": "a",
+                        "type": null,
+                        "text": "Progress Bar",
+                        "id": "",
+                        "name": null,
+                        "value": null,
+                        "disabled": false
+                    },
+                    {
+                        "tag": "a",
+                        "type": null,
+                        "text": "Tabs",
+                        "id": "",
+                        "name": null,
+                        "value": null,
+                        "disabled": false
+                    },
+                    {
+                        "tag": "a",
+                        "type": null,
+                        "text": "Tool Tips",
+                        "id": "",
+                        "name": null,
+                        "value": null,
+                        "disabled": false
+                    },
+                    {
+                        "tag": "a",
+                        "type": null,
+                        "text": "Menu",
+                        "id": "",
+                        "name": null,
+                        "value": null,
+                        "disabled": false
+                    },
+                    {
+                        "tag": "a",
+                        "type": null,
+                        "text": "Select Menu",
+                        "id": "",
+                        "name": null,
+                        "value": null,
+                        "disabled": false
+                    },
+                    {
+                        "tag": "input",
+                        "type": "text",
+                        "text": "",
+                        "id": "react-select-2-input",
+                        "name": null,
+                        "value": null,
+                        "disabled": false
+                    },
+                    {
+                        "tag": "input",
+                        "type": "text",
+                        "text": "",
+                        "id": "react-select-3-input",
+                        "name": null,
+                        "value": null,
+                        "disabled": false
+                    },
+                    {
+                        "tag": "select",
+                        "type": "select-one",
+                        "text": "Red\nBlue\nGreen\nYellow\nPurple\nBlack\nWhite\nVoilet\nIndigo\nMagenta\nAqua",
+                        "id": "oldSelectMenu",
+                        "name": null,
+                        "value": "1",
+                        "disabled": false
+                    },
+                    {
+                        "tag": "input",
+                        "type": "text",
+                        "text": "",
+                        "id": "react-select-4-input",
+                        "name": null,
+                        "value": null,
+                        "disabled": false
+                    },
+                    {
+                        "tag": "select",
+                        "type": "select-multiple",
+                        "text": "Volvo\nSaab\nOpel\nAudi",
+                        "id": "cars",
+                        "name": "cars",
+                        "value": null,
+                        "disabled": false
+                    }
+                ]
+            }
+        }
+    ],
+    "final_state": {
+        "url": "https://demoqa.com/select-menu",
+        "title": "demosite",
+        "visible_elements": [
+            {
+                "tag": "a",
+                "type": null,
+                "text": "",
+                "id": "",
+                "name": null,
+                "value": null,
+                "disabled": false
+            },
+            {
+                "tag": "a",
+                "type": null,
+                "text": "Accordian",
+                "id": "",
+                "name": null,
+                "value": null,
+                "disabled": false
+            },
+            {
+                "tag": "a",
+                "type": null,
+                "text": "Auto Complete",
+                "id": "",
+                "name": null,
+                "value": null,
+                "disabled": false
+            },
+            {
+                "tag": "a",
+                "type": null,
+                "text": "Date Picker",
+                "id": "",
+                "name": null,
+                "value": null,
+                "disabled": false
+            },
+            {
+                "tag": "a",
+                "type": null,
+                "text": "Slider",
+                "id": "",
+                "name": null,
+                "value": null,
+                "disabled": false
+            },
+            {
+                "tag": "a",
+                "type": null,
+                "text": "Progress Bar",
+                "id": "",
+                "name": null,
+                "value": null,
+                "disabled": false
+            },
+            {
+                "tag": "a",
+                "type": null,
+                "text": "Tabs",
+                "id": "",
+                "name": null,
+                "value": null,
+                "disabled": false
+            },
+            {
+                "tag": "a",
+                "type": null,
+                "text": "Tool Tips",
+                "id": "",
+                "name": null,
+                "value": null,
+                "disabled": false
+            },
+            {
+                "tag": "a",
+                "type": null,
+                "text": "Menu",
+                "id": "",
+                "name": null,
+                "value": null,
+                "disabled": false
+            },
+            {
+                "tag": "a",
+                "type": null,
+                "text": "Select Menu",
+                "id": "",
+                "name": null,
+                "value": null,
+                "disabled": false
+            },
+            {
+                "tag": "input",
+                "type": "text",
+                "text": "",
+                "id": "react-select-2-input",
+                "name": null,
+                "value": null,
+                "disabled": false
+            },
+            {
+                "tag": "input",
+                "type": "text",
+                "text": "",
+                "id": "react-select-3-input",
+                "name": null,
+                "value": null,
+                "disabled": false
+            },
+            {
+                "tag": "select",
+                "type": "select-one",
+                "text": "Red\nBlue\nGreen\nYellow\nPurple\nBlack\nWhite\nVoilet\nIndigo\nMagenta\nAqua",
+                "id": "oldSelectMenu",
+                "name": null,
+                "value": "1",
+                "disabled": false
+            },
+            {
+                "tag": "input",
+                "type": "text",
+                "text": "",
+                "id": "react-select-4-input",
+                "name": null,
+                "value": null,
+                "disabled": false
+            },
+            {
+                "tag": "select",
+                "type": "select-multiple",
+                "text": "Volvo\nSaab\nOpel\nAudi",
+                "id": "cars",
+                "name": "cars",
+                "value": null,
+                "disabled": false
+            }
+        ]
+    },
+    "summary": {
+        "dropdowns_discovered": 2,
+        "interactions_attempted": 1,
+        "successful_interactions": 1,
+        "failed_interactions": 0,
+        "blocked_interactions": 0
+    }
+}

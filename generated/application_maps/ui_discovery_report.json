@@ -1,0 +1,45 @@
+{
+    "discovery_time": "2026-10-30T06:27:53.787779",
+    "website": {
+        "title": "React • TodoMVC",
+        "url": "https://demo.playwright.dev/todomvc/#/"
+    },
+    "navigation": [],
+    "menus": [],
+    "buttons": [],
+    "inputs": [
+        {
+            "index": 1,
+            "tag": "input",
+            "type": "text",
+            "id": "",
+            "name": "",
+            "placeholder": "What needs to be done?",
+            "label": [],
+            "required": false,
+            "disabled": false,
+            "readonly": false,
+            "value_present": false,
+            "aria_label": null
+        }
+    ],
+    "dropdowns": [],
+    "checkboxes_and_radios": [],
+    "tabs": [],
+    "dialogs": [],
+    "table_information": {
+        "tables": [],
+        "pagination_controls": []
+    },
+    "summary": {
+        "navigation_sections": 0,
+        "menus": 0,
+        "buttons": 0,
+        "inputs": 1,
+        "dropdowns": 0,
+        "checkboxes_and_radios": 0,
+        "tabs": 0,
+        "dialogs": 0,
+        "tables": 0
+    }
+}

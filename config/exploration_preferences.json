@@ -1,0 +1,23 @@
+
+{
+    "user_suggestions": [
+        "Understand all major application workflows.",
+        "Identify relationships between different pages.",
+        "Pay special attention to search, filtering and tables.",
+        "Identify positive and negative testing opportunities."
+    ],
+
+    "user_restrictions": [
+        "Do not suggest deleting production records.",
+        "Do not perform payment or financial transactions.",
+        "Do not assume functionality that is not supported by evidence.",
+        "Do not generate tests that modify real business data."
+    ],
+
+    "testing_preferences": {
+        "include_positive_scenarios": true,
+        "include_negative_scenarios": true,
+        "include_boundary_scenarios": true,
+        "include_ui_validation": true
+    }
+}

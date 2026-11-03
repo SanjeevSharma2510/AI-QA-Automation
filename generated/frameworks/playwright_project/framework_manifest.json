@@ -1,0 +1,12 @@
+{
+    "generated_at": "2026-11-02T06:50:13.609045+00:00",
+    "project_name": "AI Generated Playwright Framework",
+    "framework": "Playwright",
+    "language": "JavaScript",
+    "ai_required_for_execution": false,
+    "test_directory": "tests",
+    "page_object_directory": "pages",
+    "test_data_directory": "test-data",
+    "browser": "chromium",
+    "generation_status": "completed"
+}

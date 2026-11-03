@@ -1,0 +1,19 @@
+{
+    "generated_at": "2026-11-02T06:45:51.234269+00:00",
+    "total_definitions": 1,
+    "definitions": [
+        {
+            "test_case_id": "TC-001",
+            "element_name": "todo_input",
+            "strategy": "getByPlaceholder",
+            "value": "What needs to be done?",
+            "options": {
+                "exact": true
+            },
+            "function_name": "getTc001TodoInput",
+            "source": "test_steps",
+            "confidence": "high"
+        }
+    ],
+    "failures": []
+}

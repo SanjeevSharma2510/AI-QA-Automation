@@ -1,0 +1,16 @@
+{
+    "name": "ai-generated-playwright-framework",
+    "version": "1.0.0",
+    "type": "module",
+    "private": true,
+    "description": "Standalone Playwright automation framework generated from human-approved test cases.",
+    "scripts": {
+        "test": "playwright test",
+        "test:headed": "playwright test --headed",
+        "test:debug": "playwright test --debug",
+        "test:report": "playwright show-report"
+    },
+    "devDependencies": {
+        "@playwright/test": "^1.55.0"
+    }
+}
