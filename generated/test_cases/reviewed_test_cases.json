@@ -1,6 +1,6 @@
 {
-    "review_id": "20261101_234420",
-    "created_at": "2026-11-01T23:44:20.157944",
+    "review_id": "20261103_052052",
+    "created_at": "2026-11-03T05:20:52.718777",
     "source_file": "test_cases.json",
     "test_cases": [
         {
@@ -28,9 +28,55 @@
                 "ui_discovery_report.json: inputs[0] with placeholder 'What needs to be done?', disabled: false, readonly: false, value_present: false",
                 "Approved source scenario: AI-004"
             ],
-            "execution_status": "not_executed",
+            "execution_status": "passed",
             "review_status": "approved",
-            "reviewed_at": "2026-11-01T23:45:35.301286"
+            "execution_result": {
+                "test_case_id": "TC-001",
+                "status": "passed",
+                "results": [
+                    {
+                        "action": "navigate",
+                        "status": "passed",
+                        "url": "https://demo.playwright.dev/todomvc/#/"
+                    },
+                    {
+                        "action": "assert_visible",
+                        "status": "passed"
+                    },
+                    {
+                        "action": "assert_attribute",
+                        "status": "passed",
+                        "attribute": "placeholder",
+                        "actual": "What needs to be done?"
+                    },
+                    {
+                        "action": "assert_attribute",
+                        "status": "passed",
+                        "attribute": "disabled",
+                        "actual": null
+                    },
+                    {
+                        "action": "assert_attribute",
+                        "status": "passed",
+                        "attribute": "readonly",
+                        "actual": null
+                    },
+                    {
+                        "action": "assert_value",
+                        "status": "passed",
+                        "actual": ""
+                    }
+                ],
+                "error": null
+            },
+            "reviewed_at": "2026-11-03T05:22:23.170397",
+            "execution_metadata": {
+                "executed_at": "2026-11-05T17:21:12.257742+00:00",
+                "action_plan_file": "TC-001_ai.json",
+                "result_file": "TC-001_ai_results.json",
+                "return_code": 0,
+                "synchronized_at": "2026-11-05T17:22:01.679038+00:00"
+            }
         },
         {
             "module": "TodoMVC",
@@ -57,8 +103,44 @@
                 "ui_discovery_report.json: inputs[0] placeholder 'What needs to be done?'",
                 "Approved source scenario: AI-005"
             ],
-            "execution_status": "not_executed",
-            "review_status": "pending"
+            "execution_status": "passed",
+            "review_status": "approved",
+            "execution_result": {
+                "test_case_id": "TC-002",
+                "status": "passed",
+                "results": [
+                    {
+                        "action": "navigate",
+                        "status": "passed",
+                        "url": "https://demo.playwright.dev/todomvc/#/."
+                    },
+                    {
+                        "action": "assert_value",
+                        "status": "passed",
+                        "actual": ""
+                    },
+                    {
+                        "action": "press",
+                        "status": "passed",
+                        "key": "Enter"
+                    },
+                    {
+                        "action": "assert_count",
+                        "status": "passed",
+                        "expected": 0,
+                        "actual": 0
+                    }
+                ],
+                "error": null
+            },
+            "reviewed_at": "2026-11-03T05:23:29.440603",
+            "execution_metadata": {
+                "executed_at": "2026-11-05T17:21:12.257742+00:00",
+                "action_plan_file": "TC-002_ai.json",
+                "result_file": "TC-002_ai_results.json",
+                "return_code": 0,
+                "synchronized_at": "2026-11-05T17:22:01.679456+00:00"
+            }
         },
         {
             "module": "Todo Item Entry",
@@ -88,15 +170,85 @@
                 "ui_discovery_report.json: inputs[0]",
                 "Approved source scenario: AI-006"
             ],
-            "execution_status": "not_executed",
-            "review_status": "pending"
+            "execution_status": "passed",
+            "review_status": "approved",
+            "execution_result": {
+                "test_case_id": "TC-003",
+                "status": "passed",
+                "results": [
+                    {
+                        "action": "navigate",
+                        "status": "passed",
+                        "url": "https://demo.playwright.dev/todomvc/#/"
+                    },
+                    {
+                        "action": "fill",
+                        "status": "passed",
+                        "value_length": 1
+                    },
+                    {
+                        "action": "press",
+                        "status": "passed",
+                        "key": "Enter"
+                    },
+                    {
+                        "action": "assert_visible",
+                        "status": "passed"
+                    },
+                    {
+                        "action": "assert_text",
+                        "status": "passed",
+                        "expected_length": 1,
+                        "actual_length": 1
+                    },
+                    {
+                        "action": "fill",
+                        "status": "passed",
+                        "value_length": 255
+                    },
+                    {
+                        "action": "press",
+                        "status": "passed",
+                        "key": "Enter"
+                    },
+                    {
+                        "action": "assert_visible",
+                        "status": "passed"
+                    },
+                    {
+                        "action": "assert_text",
+                        "status": "passed",
+                        "expected_length": 255,
+                        "actual_length": 255
+                    },
+                    {
+                        "action": "assert_count",
+                        "status": "passed",
+                        "expected": 2,
+                        "actual": 2
+                    }
+                ],
+                "error": null
+            },
+            "reviewed_at": "2026-11-03T05:22:52.680069",
+            "execution_metadata": {
+                "executed_at": "2026-11-05T17:21:12.257742+00:00",
+                "action_plan_file": "TC-003_ai.json",
+                "result_file": "TC-003_ai_results.json",
+                "return_code": 0,
+                "synchronized_at": "2026-11-05T17:22:01.679817+00:00"
+            }
         }
     ],
     "review_summary": {
         "total": 3,
-        "approved": 1,
+        "approved": 3,
         "rejected": 0,
-        "pending": 2
+        "pending": 0,
+        "passed_execution": 3,
+        "failed_execution": 0,
+        "blocked_execution": 0,
+        "not_executed": 0
     },
-    "updated_at": "2026-11-01T23:45:39.425568"
+    "updated_at": "2026-11-03T05:23:32.143167"
 }

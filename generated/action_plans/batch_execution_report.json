@@ -1,0 +1,31 @@
+{
+    "executed_at": "2026-11-05T17:21:12.257742+00:00",
+    "total_plans": 3,
+    "passed": 3,
+    "failed": 0,
+    "timeout": 0,
+    "errors": 0,
+    "results": [
+        {
+            "test_case_id": "TC-001",
+            "status": "passed",
+            "return_code": 0,
+            "result_file": "TC-001_ai_results.json",
+            "error": null
+        },
+        {
+            "test_case_id": "TC-002",
+            "status": "passed",
+            "return_code": 0,
+            "result_file": "TC-002_ai_results.json",
+            "error": null
+        },
+        {
+            "test_case_id": "TC-003",
+            "status": "passed",
+            "return_code": 0,
+            "result_file": "TC-003_ai_results.json",
+            "error": null
+        }
+    ]
+}

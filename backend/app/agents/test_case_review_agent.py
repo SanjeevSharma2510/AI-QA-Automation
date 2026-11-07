@@ -60,11 +60,108 @@ class TestCaseReviewAgent:
             / "approved_test_cases.xlsx"
         )
 
+        # Latest visual execution report
+        self.execution_results_file = (
+            self.project_root
+            / "generated"
+            / "execution"
+            / "execution_results.json"
+        )
+
         self.test_cases = []
         self.review_data = None
 
         # Gemini is initialized only when AI improvement is requested.
         self.gemini = None
+
+    # =========================================================
+    # ATTACH EXECUTION RESULTS
+    # =========================================================
+
+    def attach_execution_results(self):
+        """Attach the latest execution result to each test case."""
+
+        execution_results = {}
+
+        if self.execution_results_file.exists():
+
+            with open(
+                self.execution_results_file,
+                "r",
+                encoding="utf-8"
+            ) as file:
+
+                report = json.load(file)
+
+            execution_results = {
+                result["test_case_id"]: result
+                for result in report.get("results", [])
+                if result.get("test_case_id")
+            }
+
+        for case in self.test_cases:
+
+            test_id = case["test_case_id"]
+
+            result = execution_results.get(test_id)
+
+            if not result:
+
+                case["execution_status"] = "not_executed"
+                case["execution_result"] = None
+
+                if case.get("review_status") == "approved":
+                    case["review_status"] = "pending"
+
+                continue
+
+            # An edit made after execution invalidates old evidence.
+            updated_at = case.get("updated_at")
+            finished_at = result.get("finished_at")
+
+            if updated_at and finished_at:
+
+                try:
+
+                    updated_time = datetime.fromisoformat(
+                        updated_at
+                    )
+
+                    finished_time = datetime.fromisoformat(
+                        finished_at
+                    )
+
+                    if updated_time > finished_time:
+
+                        case["execution_status"] = "not_executed"
+                        case["execution_result"] = None
+                        case["review_status"] = "pending"
+
+                        continue
+
+                except ValueError:
+                    pass
+
+            case["execution_status"] = result.get(
+                "execution_status",
+                "not_executed"
+            )
+
+            case["execution_result"] = result
+
+            # A failed or blocked execution cannot retain approval.
+            if (
+                case["execution_status"] != "passed"
+                and case.get("review_status") == "approved"
+            ):
+
+                case["review_status"] = "pending"
+
+        print("\nExecution results attached to test cases.")
+
+    # =========================================================
+    # LOAD TEST CASES
+    # =========================================================
 
     def load_test_cases(self):
         """Load generated test cases or resume an existing review."""
@@ -89,16 +186,21 @@ class TestCaseReviewAgent:
 
                 self.test_cases = self.review_data["test_cases"]
 
+                self.attach_execution_results()
+
                 self.validate_all_cases()
 
+                self.save_review()
+
                 print("Existing review loaded successfully.")
+
                 return
 
         if not self.input_file.exists():
 
             raise FileNotFoundError(
                 "test_cases.json not found. "
-                "Run Step 12 first."
+                "Run the test case generator first."
             )
 
         with open(
@@ -116,6 +218,9 @@ class TestCaseReviewAgent:
         if not self.test_cases:
 
             raise ValueError("No generated test cases found.")
+
+        # Attach the latest execution evidence.
+        self.attach_execution_results()
 
         self.validate_all_cases()
 
@@ -139,8 +244,12 @@ class TestCaseReviewAgent:
             f"\nLoaded {len(self.test_cases)} test cases."
         )
 
+    # =========================================================
+    # VALIDATE TEST CASES
+    # =========================================================
+
     def validate_all_cases(self):
-        """Basic structural validation."""
+        """Validate the structure of all test cases."""
 
         if not isinstance(self.test_cases, list):
 
@@ -225,49 +334,96 @@ class TestCaseReviewAgent:
                         f"{test_id}: Invalid {field}."
                     )
 
+    # =========================================================
+    # DISPLAY TEST CASE
+    # =========================================================
+
     def display_test_case(self, case):
 
         print("\n" + "=" * 60)
 
         print(f"ID: {case['test_case_id']}")
-
         print(f"Module: {case['module']}")
-
         print(f"Scenario: {case['scenario_name']}")
-
         print(f"Type: {case['scenario_type']}")
-
         print(f"Priority: {case['priority']}")
 
-        print(f"Status: {case.get('review_status', 'pending')}")
+        print(
+            f"Review Status: "
+            f"{case.get('review_status', 'pending')}"
+        )
+
+        print(
+            f"Execution Status: "
+            f"{case.get('execution_status', 'not_executed')}"
+        )
+
+        execution_result = case.get("execution_result")
+
+        if execution_result:
+
+            print("\nExecution Details:")
+
+            print(
+                f"Duration: "
+                f"{execution_result.get('duration_seconds', 'N/A')} seconds"
+            )
+
+            print(
+                f"Error: "
+                f"{execution_result.get('error') or 'None'}"
+            )
+
+            checks = execution_result.get("checks", {})
+
+            if isinstance(checks, dict):
+
+                for check in checks.get("checks", []):
+
+                    print(f"- {check}")
+
+            screenshot = execution_result.get("screenshot")
+
+            if screenshot:
+
+                print(f"Screenshot: {screenshot}")
 
         print("\nPreconditions:")
 
         for item in case["preconditions"]:
+
             print(f"- {item}")
 
         print("\nTest Steps:")
 
         for index, step in enumerate(case["test_steps"], 1):
+
             print(f"{index}. {step}")
 
         print("\nExpected Results:")
 
         for item in case["expected_results"]:
+
             print(f"- {item}")
 
         print("\nSource Workflows:")
 
         for item in case["source_workflow_ids"]:
+
             print(f"- {item}")
 
         print("=" * 60)
+
+    # =========================================================
+    # EDIT TEST CASE
+    # =========================================================
 
     def edit_list_field(self, field, current_values):
 
         print(f"\nCurrent {field}:")
 
         for index, value in enumerate(current_values, 1):
+
             print(f"{index}. {value}")
 
         print(
@@ -282,14 +438,17 @@ class TestCaseReviewAgent:
             value = input("> ").strip()
 
             if value.upper() == "DONE":
+
                 break
 
             if value:
+
                 updated_values.append(value)
 
         if not updated_values:
 
             print("Empty values are not allowed.")
+
             return current_values
 
         return updated_values
@@ -301,7 +460,8 @@ class TestCaseReviewAgent:
         while True:
 
             for index, field in enumerate(
-                self.EDITABLE_FIELDS, 1
+                self.EDITABLE_FIELDS,
+                1
             ):
 
                 print(f"{index}. {field}")
@@ -311,6 +471,7 @@ class TestCaseReviewAgent:
             choice = input("\nSelect field: ").strip()
 
             if choice == "0":
+
                 break
 
             try:
@@ -322,6 +483,7 @@ class TestCaseReviewAgent:
             except (ValueError, IndexError):
 
                 print("Invalid selection.")
+
                 continue
 
             current_value = case[field]
@@ -342,6 +504,7 @@ class TestCaseReviewAgent:
                 ).strip()
 
                 if new_value:
+
                     case[field] = new_value
 
             print(f"{field} updated.")
@@ -349,12 +512,20 @@ class TestCaseReviewAgent:
         # Revalidate after editing.
         self.validate_all_cases()
 
-        # Editing invalidates any previous approval.
+        # Editing invalidates previous execution evidence.
         case["review_status"] = "pending"
-
+        case["execution_status"] = "not_executed"
+        case["execution_result"] = None
         case["updated_at"] = datetime.now().isoformat()
 
-        print("Test case updated. Approval is now pending.")
+        print(
+            "Test case updated. "
+            "Execution must be performed again before approval."
+        )
+
+    # =========================================================
+    # GEMINI IMPROVEMENT
+    # =========================================================
 
     def get_gemini(self):
 
@@ -365,7 +536,7 @@ class TestCaseReviewAgent:
         return self.gemini
 
     def improve_with_ai(self, case):
-        """Optional Gemini-based improvement of one test case."""
+        """Improve one test case using Gemini."""
 
         print("\nAsking Gemini to improve this test case...")
 
@@ -393,7 +564,6 @@ Do not include review_status or updated_at.
 
         improved_case = json.loads(response)
 
-        # Keep original identifier and review metadata.
         improved_case["test_case_id"] = case["test_case_id"]
 
         for field in self.EDITABLE_FIELDS:
@@ -416,6 +586,7 @@ Do not include review_status or updated_at.
         except Exception:
 
             self.test_cases = previous_cases
+
             raise
 
         self.test_cases = previous_cases
@@ -424,12 +595,18 @@ Do not include review_status or updated_at.
         case.update(improved_case)
 
         case["review_status"] = "pending"
+        case["execution_status"] = "not_executed"
+        case["execution_result"] = None
         case["updated_at"] = datetime.now().isoformat()
 
         print(
             "AI improvement applied. "
-            "Please review and approve again."
+            "Please execute and review this test case again."
         )
+
+    # =========================================================
+    # ADD MANUAL TEST CASE
+    # =========================================================
 
     def add_manual_test_case(self):
 
@@ -443,6 +620,7 @@ Do not include review_status or updated_at.
         ):
 
             print("This test case ID already exists.")
+
             return
 
         case = {
@@ -461,7 +639,9 @@ Do not include review_status or updated_at.
             "source_workflow_ids": [],
             "evidence": [],
             "review_status": "pending",
-            "created_by": "user"
+            "created_by": "user",
+            "execution_status": "not_executed",
+            "execution_result": None
         }
 
         for field in [
@@ -472,7 +652,9 @@ Do not include review_status or updated_at.
             "evidence"
         ]:
 
-            print(f"\nEnter {field}, one per line. DONE to finish.")
+            print(
+                f"\nEnter {field}, one per line. DONE to finish."
+            )
 
             case[field] = []
 
@@ -481,9 +663,11 @@ Do not include review_status or updated_at.
                 value = input("> ").strip()
 
                 if value.upper() == "DONE":
+
                     break
 
                 if value:
+
                     case[field].append(value)
 
         self.test_cases.append(case)
@@ -497,11 +681,16 @@ Do not include review_status or updated_at.
             self.test_cases.pop()
 
             print(f"Invalid test case: {error}")
+
             return
 
         self.save_review()
 
         print("New test case added successfully.")
+
+    # =========================================================
+    # DELETE TEST CASE
+    # =========================================================
 
     def delete_test_case(self, case):
 
@@ -516,6 +705,10 @@ Do not include review_status or updated_at.
             self.save_review()
 
             print("Test case deleted.")
+
+    # =========================================================
+    # REVIEW ONE TEST CASE
+    # =========================================================
 
     def review_one_case(self, case):
 
@@ -534,15 +727,41 @@ Do not include review_status or updated_at.
 
             if choice == "1":
 
+                # Approval requires successful execution.
+                execution_status = case.get(
+                    "execution_status",
+                    "not_executed"
+                )
+
+                if execution_status != "passed":
+
+                    print("\nCannot approve this test case.")
+
+                    print(
+                        f"Current execution status: {execution_status}"
+                    )
+
+                    print(
+                        "The test case must pass execution before approval."
+                    )
+
+                    continue
+
                 try:
+
                     self.validate_all_cases()
 
                 except Exception as error:
 
                     print(f"Cannot approve: {error}")
+
                     continue
 
                 case["review_status"] = "approved"
+
+                case["reviewed_at"] = datetime.now().isoformat()
+
+                print("Test case approved successfully.")
 
                 break
 
@@ -573,6 +792,7 @@ Do not include review_status or updated_at.
             elif choice == "5":
 
                 self.delete_test_case(case)
+
                 return
 
             elif choice == "6":
@@ -586,6 +806,10 @@ Do not include review_status or updated_at.
         case["reviewed_at"] = datetime.now().isoformat()
 
         self.save_review()
+
+    # =========================================================
+    # SAVE REVIEW
+    # =========================================================
 
     def save_review(self):
 
@@ -615,6 +839,10 @@ Do not include review_status or updated_at.
 
         print("\nReview progress saved.")
 
+    # =========================================================
+    # REVIEW SUMMARY
+    # =========================================================
+
     def update_summary(self):
 
         self.review_data["review_summary"] = {
@@ -634,19 +862,47 @@ Do not include review_status or updated_at.
             "pending": sum(
                 c.get("review_status") == "pending"
                 for c in self.test_cases
+            ),
+
+            "passed_execution": sum(
+                c.get("execution_status") == "passed"
+                for c in self.test_cases
+            ),
+
+            "failed_execution": sum(
+                c.get("execution_status") == "failed"
+                for c in self.test_cases
+            ),
+
+            "blocked_execution": sum(
+                c.get("execution_status") == "blocked"
+                for c in self.test_cases
+            ),
+
+            "not_executed": sum(
+                c.get("execution_status", "not_executed") == "not_executed"
+                for c in self.test_cases
             )
         }
+
+    # =========================================================
+    # EXPORT APPROVED TEST CASES
+    # =========================================================
 
     def export_approved_cases(self):
 
         approved = [
             case for case in self.test_cases
-            if case.get("review_status") == "approved"
+            if (
+                case.get("review_status") == "approved"
+                and case.get("execution_status") == "passed"
+            )
         ]
 
         if not approved:
 
             print("No approved test cases available.")
+
             return
 
         workbook = Workbook()
@@ -696,7 +952,10 @@ Do not include review_status or updated_at.
                 "\n".join(case["evidence"])
             ])
 
-        widths = [16, 20, 35, 18, 12, 40, 50, 50, 35, 45]
+        widths = [
+            16, 20, 35, 18, 12,
+            40, 50, 50, 35, 45
+        ]
 
         for index, width in enumerate(widths, 1):
 
@@ -724,6 +983,10 @@ Do not include review_status or updated_at.
 
         print(f"Exported test cases: {len(approved)}")
 
+    # =========================================================
+    # DISPLAY SUMMARY
+    # =========================================================
+
     def display_summary(self):
 
         self.update_summary()
@@ -737,7 +1000,29 @@ Do not include review_status or updated_at.
         print(f"Rejected: {summary['rejected']}")
         print(f"Pending: {summary['pending']}")
 
+        print("\n========== EXECUTION SUMMARY ==========")
+
+        print(
+            f"Passed: {summary['passed_execution']}"
+        )
+
+        print(
+            f"Failed: {summary['failed_execution']}"
+        )
+
+        print(
+            f"Blocked: {summary['blocked_execution']}"
+        )
+
+        print(
+            f"Not Executed: {summary['not_executed']}"
+        )
+
         print("====================================")
+
+    # =========================================================
+    # MAIN MENU
+    # =========================================================
 
     def run(self):
 
@@ -760,12 +1045,17 @@ Do not include review_status or updated_at.
 
             if choice == "1":
 
+                print("\n========== ALL TEST CASES ==========")
+
                 for case in self.test_cases:
 
                     print(
                         f"{case['test_case_id']} | "
                         f"{case['scenario_name']} | "
-                        f"{case['review_status']}"
+                        f"Execution: "
+                        f"{case.get('execution_status', 'not_executed')} | "
+                        f"Review: "
+                        f"{case.get('review_status', 'pending')}"
                     )
 
             elif choice == "2":
@@ -805,9 +1095,11 @@ Do not include review_status or updated_at.
             elif choice == "6":
 
                 self.save_review()
+
                 self.display_summary()
 
                 print("\nReview session completed.")
+
                 break
 
             else:
@@ -815,16 +1107,23 @@ Do not include review_status or updated_at.
                 print("Invalid selection.")
 
 
+# =============================================================
+# APPLICATION ENTRY POINT
+# =============================================================
+
 def main():
 
     try:
 
         agent = TestCaseReviewAgent()
+
         agent.run()
 
     except Exception as error:
 
         print(f"\nTest Case Review failed: {error}")
+
+        raise
 
 
 if __name__ == "__main__":

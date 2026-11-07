@@ -1,0 +1,39 @@
+{
+    "test_case_id": "TC-001",
+    "status": "passed",
+    "results": [
+        {
+            "action": "navigate",
+            "status": "passed",
+            "url": "https://demo.playwright.dev/todomvc/#/"
+        },
+        {
+            "action": "assert_visible",
+            "status": "passed"
+        },
+        {
+            "action": "assert_attribute",
+            "status": "passed",
+            "attribute": "placeholder",
+            "actual": "What needs to be done?"
+        },
+        {
+            "action": "assert_attribute",
+            "status": "passed",
+            "attribute": "disabled",
+            "actual": null
+        },
+        {
+            "action": "assert_attribute",
+            "status": "passed",
+            "attribute": "readonly",
+            "actual": null
+        },
+        {
+            "action": "assert_value",
+            "status": "passed",
+            "actual": ""
+        }
+    ],
+    "error": null
+}

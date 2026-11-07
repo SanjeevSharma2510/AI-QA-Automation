@@ -1,0 +1,34 @@
+{
+    "test_case_id": "TC-002",
+    "scenario_name": "Attempt empty submission on TodoMVC input field",
+    "actions": [
+        {
+            "action": "navigate",
+            "url": "https://demo.playwright.dev/todomvc/#/."
+        },
+        {
+            "action": "assert_value",
+            "locator": {
+                "strategy": "placeholder",
+                "value": "What needs to be done?"
+            },
+            "expected": ""
+        },
+        {
+            "action": "press",
+            "locator": {
+                "strategy": "placeholder",
+                "value": "What needs to be done?"
+            },
+            "key": "Enter"
+        },
+        {
+            "action": "assert_count",
+            "locator": {
+                "strategy": "css",
+                "value": ".todo-list li"
+            },
+            "expected": 0
+        }
+    ]
+}

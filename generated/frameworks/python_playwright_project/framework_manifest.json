@@ -1,0 +1,21 @@
+{
+    "project_name": "AI Generated Python Playwright Framework",
+    "generated_at": "2026-11-03T11:28:03.427483+00:00",
+    "framework": "Playwright",
+    "language": "Python",
+    "test_runner": "pytest",
+    "source_file": "generated\\test_cases\\reviewed_test_cases.json",
+    "total_generated_tests": 3,
+    "test_case_ids": [
+        "TC-001",
+        "TC-002",
+        "TC-003"
+    ],
+    "generated_test_files": [
+        "tc_001_test.py",
+        "tc_002_test.py",
+        "tc_003_test.py"
+    ],
+    "ai_required_for_execution": false,
+    "generation_status": "completed"
+}

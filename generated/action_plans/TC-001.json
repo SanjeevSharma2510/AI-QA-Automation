@@ -1,0 +1,53 @@
+
+{
+    "test_case_id": "TC-001",
+    "scenario_name": "Validate initial rendering and attributes of TodoMVC input field",
+    "actions": [
+        {
+            "action": "navigate",
+            "url": "https://demo.playwright.dev/todomvc/#/"
+        },
+        {
+            "action": "assert_visible",
+            "locator": {
+                "strategy": "placeholder",
+                "value": "What needs to be done?"
+            }
+        },
+        {
+            "action": "assert_attribute",
+            "locator": {
+                "strategy": "placeholder",
+                "value": "What needs to be done?"
+            },
+            "attribute": "placeholder",
+            "expected": "What needs to be done?"
+        },
+        {
+            "action": "assert_attribute",
+            "locator": {
+                "strategy": "placeholder",
+                "value": "What needs to be done?"
+            },
+            "attribute": "disabled",
+            "expected": null
+        },
+        {
+            "action": "assert_attribute",
+            "locator": {
+                "strategy": "placeholder",
+                "value": "What needs to be done?"
+            },
+            "attribute": "readonly",
+            "expected": null
+        },
+        {
+            "action": "assert_value",
+            "locator": {
+                "strategy": "placeholder",
+                "value": "What needs to be done?"
+            },
+            "expected": ""
+        }
+    ]
+}

@@ -1,0 +1,16 @@
+{
+    "project_name": "Generic AI Action-Plan Playwright Framework",
+    "generated_at": "2026-11-04T10:46:21.437382+00:00",
+    "language": "Python",
+    "framework": "Playwright",
+    "test_runner": "pytest",
+    "total_generated_tests": 3,
+    "test_case_ids": [
+        "TC-001",
+        "TC-002",
+        "TC-003"
+    ],
+    "generated_test_file": "tests/test_generated_action_plans.py",
+    "execution_requires_gemini": false,
+    "generation_status": "completed"
+}

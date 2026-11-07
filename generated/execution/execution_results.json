@@ -1,0 +1,80 @@
+{
+    "execution_started": "2026-11-03T11:00:21.376916+00:00",
+    "execution_completed": "2026-11-03T11:00:24.975640+00:00",
+    "total": 3,
+    "passed": 3,
+    "failed": 0,
+    "blocked": 0,
+    "results": [
+        {
+            "test_case_id": "TC-001",
+            "scenario_name": "Validate initial rendering and attributes of TodoMVC input field",
+            "execution_status": "passed",
+            "started_at": "2026-11-03T11:00:21.376916+00:00",
+            "finished_at": "2026-11-03T11:00:22.484427+00:00",
+            "duration_seconds": 1.11,
+            "checks": {
+                "checks": [
+                    "Input is visible",
+                    "Input is enabled",
+                    "Input is editable",
+                    "Placeholder matches",
+                    "Input is empty"
+                ]
+            },
+            "error": null,
+            "screenshot": "generated\\execution\\screenshots\\TC-001.png"
+        },
+        {
+            "test_case_id": "TC-002",
+            "scenario_name": "Attempt empty submission on TodoMVC input field",
+            "execution_status": "passed",
+            "started_at": "2026-11-03T11:00:22.484787+00:00",
+            "finished_at": "2026-11-03T11:00:23.478986+00:00",
+            "duration_seconds": 0.99,
+            "checks": {
+                "checks": [
+                    "Input was empty before submission",
+                    "Enter key was pressed",
+                    "No empty todo item was created"
+                ],
+                "todo_count_before": 0,
+                "todo_count_after": 0
+            },
+            "error": null,
+            "screenshot": "generated\\execution\\screenshots\\TC-002.png"
+        },
+        {
+            "test_case_id": "TC-003",
+            "scenario_name": "Boundary string length input in TodoMVC input field",
+            "execution_status": "passed",
+            "started_at": "2026-11-03T11:00:23.479491+00:00",
+            "finished_at": "2026-11-03T11:00:24.322878+00:00",
+            "duration_seconds": 0.84,
+            "checks": {
+                "checks": [
+                    "Single-character todo created",
+                    "255-character todo created",
+                    "1000-character todo created",
+                    "Input cleared after submission"
+                ],
+                "created_items": [
+                    {
+                        "text_length": 1,
+                        "displayed_correctly": true
+                    },
+                    {
+                        "text_length": 255,
+                        "displayed_correctly": true
+                    },
+                    {
+                        "text_length": 1000,
+                        "displayed_correctly": true
+                    }
+                ]
+            },
+            "error": null,
+            "screenshot": "generated\\execution\\screenshots\\TC-003.png"
+        }
+    ]
+}

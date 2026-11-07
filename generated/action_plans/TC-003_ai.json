@@ -1,0 +1,86 @@
+{
+    "test_case_id": "TC-003",
+    "scenario_name": "Boundary string length input in TodoMVC input field",
+    "actions": [
+        {
+            "action": "navigate",
+            "url": "https://demo.playwright.dev/todomvc/#/"
+        },
+        {
+            "action": "fill",
+            "locator": {
+                "strategy": "placeholder",
+                "value": "What needs to be done?"
+            },
+            "value": "A"
+        },
+        {
+            "action": "press",
+            "locator": {
+                "strategy": "placeholder",
+                "value": "What needs to be done?"
+            },
+            "key": "Enter"
+        },
+        {
+            "action": "assert_visible",
+            "locator": {
+                "strategy": "css",
+                "value": ".todo-list li:nth-child(1) label"
+            }
+        },
+        {
+            "action": "assert_text",
+            "locator": {
+                "strategy": "css",
+                "value": ".todo-list li:nth-child(1) label"
+            },
+            "expected": "A"
+        },
+        {
+            "action": "fill",
+            "locator": {
+                "strategy": "placeholder",
+                "value": "What needs to be done?"
+            },
+            "value": {
+                "text": "B",
+                "repeat": 255
+            }
+        },
+        {
+            "action": "press",
+            "locator": {
+                "strategy": "placeholder",
+                "value": "What needs to be done?"
+            },
+            "key": "Enter"
+        },
+        {
+            "action": "assert_visible",
+            "locator": {
+                "strategy": "css",
+                "value": ".todo-list li:nth-child(2) label"
+            }
+        },
+        {
+            "action": "assert_text",
+            "locator": {
+                "strategy": "css",
+                "value": ".todo-list li:nth-child(2) label"
+            },
+            "expected": {
+                "text": "B",
+                "repeat": 255
+            }
+        },
+        {
+            "action": "assert_count",
+            "locator": {
+                "strategy": "css",
+                "value": ".todo-list li"
+            },
+            "expected": 2
+        }
+    ]
+}

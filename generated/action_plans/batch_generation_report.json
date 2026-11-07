@@ -1,0 +1,30 @@
+{
+    "generated_at": "2026-11-04T11:40:59.671037+00:00",
+    "total_test_cases": 3,
+    "eligible_test_cases": 3,
+    "generated_count": 3,
+    "failed_count": 0,
+    "results": [
+        {
+            "test_case_id": "TC-001",
+            "status": "generated",
+            "action_count": 6,
+            "plan_file": "TC-001_ai.json",
+            "error": null
+        },
+        {
+            "test_case_id": "TC-002",
+            "status": "generated",
+            "action_count": 4,
+            "plan_file": "TC-002_ai.json",
+            "error": null
+        },
+        {
+            "test_case_id": "TC-003",
+            "status": "generated",
+            "action_count": 10,
+            "plan_file": "TC-003_ai.json",
+            "error": null
+        }
+    ]
+}

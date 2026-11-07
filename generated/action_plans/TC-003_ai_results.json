@@ -1,0 +1,58 @@
+{
+    "test_case_id": "TC-003",
+    "status": "passed",
+    "results": [
+        {
+            "action": "navigate",
+            "status": "passed",
+            "url": "https://demo.playwright.dev/todomvc/#/"
+        },
+        {
+            "action": "fill",
+            "status": "passed",
+            "value_length": 1
+        },
+        {
+            "action": "press",
+            "status": "passed",
+            "key": "Enter"
+        },
+        {
+            "action": "assert_visible",
+            "status": "passed"
+        },
+        {
+            "action": "assert_text",
+            "status": "passed",
+            "expected_length": 1,
+            "actual_length": 1
+        },
+        {
+            "action": "fill",
+            "status": "passed",
+            "value_length": 255
+        },
+        {
+            "action": "press",
+            "status": "passed",
+            "key": "Enter"
+        },
+        {
+            "action": "assert_visible",
+            "status": "passed"
+        },
+        {
+            "action": "assert_text",
+            "status": "passed",
+            "expected_length": 255,
+            "actual_length": 255
+        },
+        {
+            "action": "assert_count",
+            "status": "passed",
+            "expected": 2,
+            "actual": 2
+        }
+    ],
+    "error": null
+}

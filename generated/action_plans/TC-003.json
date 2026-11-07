@@ -1,0 +1,104 @@
+
+{
+    "test_case_id": "TC-003",
+    "scenario_name": "Boundary string length input in TodoMVC input field",
+    "actions": [
+        {
+            "action": "navigate",
+            "url": "https://demo.playwright.dev/todomvc/#/"
+        },
+        {
+            "action": "fill",
+            "locator": {
+                "strategy": "placeholder",
+                "value": "What needs to be done?"
+            },
+            "value": "A"
+        },
+        {
+            "action": "press",
+            "locator": {
+                "strategy": "placeholder",
+                "value": "What needs to be done?"
+            },
+            "key": "Enter"
+        },
+        {
+            "action": "assert_count",
+            "locator": {
+                "strategy": "css",
+                "value": ".todo-list li"
+            },
+            "expected": 1
+        },
+        {
+            "action": "assert_text",
+            "locator": {
+                "strategy": "css",
+                "value": ".todo-list li:last-child"
+            },
+            "expected": "A"
+        },
+        {
+            "action": "assert_value",
+            "locator": {
+                "strategy": "placeholder",
+                "value": "What needs to be done?"
+            },
+            "expected": ""
+        },
+        {
+            "action": "fill",
+            "locator": {
+                "strategy": "placeholder",
+                "value": "What needs to be done?"
+            },
+            "value": {
+                "text": "B",
+                "repeat": 255
+            }
+        },
+        {
+            "action": "press",
+            "locator": {
+                "strategy": "placeholder",
+                "value": "What needs to be done?"
+            },
+            "key": "Enter"
+        },
+        {
+            "action": "assert_count",
+            "locator": {
+                "strategy": "css",
+                "value": ".todo-list li"
+            },
+            "expected": 2
+        },
+        {
+            "action": "assert_text",
+            "locator": {
+                "strategy": "css",
+                "value": ".todo-list li:last-child"
+            },
+            "expected": {
+                "text": "B",
+                "repeat": 255
+            }
+        },
+        {
+            "action": "assert_visible",
+            "locator": {
+                "strategy": "css",
+                "value": ".todo-list li:last-child"
+            }
+        },
+        {
+            "action": "assert_value",
+            "locator": {
+                "strategy": "placeholder",
+                "value": "What needs to be done?"
+            },
+            "expected": ""
+        }
+    ]
+}
